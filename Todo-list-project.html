@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO-LIST-PROJECT</title>
+    <link rel="stylesheet" href="/Todo-list-project.css">
+</head>
+
+<body>
+    <p>TODO-LIST-PROJECT</p>
+    <div class="todo-input-grid">
+        <input type="text" placeholder="Todo-name" class="todo name-input">
+
+        <input type="date" class="js-due-date due-date-input">
+
+        <button class="press todo-button add-todo">Add</button>
+    </div>
+    <p class="array-input"></p>
+
+    <div class="todo-values todo-grid"></div>
+
+    <script>
+        let arrayButton = [{
+                name: 'wash dishes',
+                dueDate: '07-20-2023'
+            },
+            {
+                name: 'cook food',
+                dueDate: '07-22-2023'
+            }
+        ];
+
+
+        function renderBack() {
+
+            let newHtml = '';
+            arrayButton.forEach((todoObject, index)=>{
+               
+                //  let name = todoObject.name;
+                let {
+                    name,
+                    dueDate
+                } = todoObject;
+                let html = `<div>${name}</div>
+                 <div>  ${dueDate}</div>
+                <button onclick="
+                arrayButton.splice(${index}, 1);
+                renderBack(); 
+                " class="js-delete todo-delete js-value-delete" >Delete</button>
+                `;
+                newHtml += html; 
+                document.querySelector('.todo-values').innerHTML = newHtml;
+            //  document.querySelectorAll('.js-value-delete')
+            //   .forEach((deleteButton, index)=> {
+            //     deleteButton.addEventListener('click', ()=> {
+            //         arrayButton.splice(index, 1);
+            //     renderBack();   
+            //     });
+            //   } )  ;
+        
+            })
+            // for (let i = 0; i < arrayButton.length; i++) {
+            //     let todoObject = arrayButton[i];
+            //     let name = todoObject.name;
+            //     let {
+            //         dueDate
+            //     } = todoObject;
+            //     let html = `<div>${name}</div>
+            //      <div>  ${dueDate}</div>
+            //     <button onclick="
+            //     arrayButton.splice(${i}, 1);
+            //     renderBack(); 
+            //     " class="js-delete todo-delete" >Delete</button>
+            //     `;
+            //     newHtml += html;
+            //   
+
+            // }
+        }
+
+         document.querySelector('.add-todo')
+         .addEventListener('click', ()=> {
+            todoList();
+         })
+
+        function todoList() {
+            const todoValue = document.querySelector('.todo');
+            let name = todoValue.value;
+            const inputElement = document.querySelector('.js-due-date');
+            let dueDate = inputElement.value;
+
+            arrayButton.push({
+                name: name,
+                dueDate: dueDate
+            });
+
+            todoValue.value = '';
+            renderBack();
+        }
+    </script>
+</body>
+
+</html>
